@@ -107,6 +107,84 @@ export default function Home() {
           </div>
         </CardFooter>
       </Card>
+
+      {/* THIS IS WHERE I ADD OTHER 4 BUTTONS FOR RANDOM STUFF */}
+
+      <Card
+        isPressable
+        isHoverable
+        className="col-span-4 row-span-1 content-center sm:col-span-1 p-4" // Add custom styles via class names
+      >
+        <div className="absolute inset-0 z-0">
+          <Image
+            // removeWrapper;
+            src="/sikkim.JPG"
+            alt="sikkim"
+            className=" z-0 w-full h-full scale-125 -translate-y-6 object-cover"
+          />
+        </div>
+
+        <CardHeader className="text-4xl font-black text-center text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+          <h4>look at my pictures</h4>
+        </CardHeader>
+      </Card>
+
+      <Card
+        isPressable
+        isHoverable
+        className="col-span-4 row-span-1 content-center sm:col-span-1 p-4" // Add custom styles via class names
+      >
+        <div className="absolute inset-0 z-0">
+          <Image
+            // removeWrapper;
+            src="/codeday.JPG"
+            alt="codeday"
+            className=" z-0 w-full h-full scale-125 -translate-y-6 object-cover"
+          />
+        </div>
+
+        <CardHeader className="text-4xl font-black text-center text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+          <h4>🡕</h4>
+        </CardHeader>
+      </Card>
+
+      <Card
+        isPressable
+        isHoverable
+        className="col-span-4 row-span-1 content-center sm:col-span-1 p-4" // Add custom styles via class names
+      >
+        <div className="absolute inset-0 z-0">
+          <Image
+            // removeWrapper;
+            src="/tisme.JPG"
+            alt="ojas srivastava"
+            className=" z-0 w-full h-full scale-125 -translate-y-6 object-cover"
+          />
+        </div>
+
+        <CardHeader className="text-4xl font-black text-center text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+          <h4>let's meet! (online)</h4>
+        </CardHeader>
+      </Card>
+
+      <Card
+        isPressable
+        isHoverable
+        className="col-span-4 row-span-1 content-center sm:col-span-1 p-4" // Add custom styles via class names
+      >
+        <div className="absolute inset-0 z-0">
+          <Image
+            // removeWrapper;
+            src="/lucknow.JPG"
+            alt="Lucknow"
+            className=" z-0 w-full h-full scale-125 -translate-y-6 object-cover"
+          />
+        </div>
+
+        <CardHeader className="text-4xl font-black text-center text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+          <h4>email?</h4>
+        </CardHeader>
+      </Card>
     </section>
   );
 }
