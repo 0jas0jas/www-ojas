@@ -1,14 +1,7 @@
 import { Link } from "@nextui-org/link";
-import { Snippet } from "@nextui-org/snippet";
-import { Code } from "@nextui-org/code";
-import { button as buttonStyles } from "@nextui-org/theme";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
-import { Button } from "@nextui-org/button";
 
-import { siteConfig } from "@/config/site";
-import { title, subtitle } from "@/components/primitives";
-import { GithubIcon } from "@/components/icons";
 
 export default function Home() {
   return (
@@ -70,7 +63,7 @@ export default function Home() {
         className="col-span-4 row-span-1 content-center sm:col-span-1 p-4 " // Add custom styles via class names
       >
         <Link href="/projects">
-          <CardHeader className="text-4xl font-black text-center text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+          <CardHeader className="text-4xl font-black text-white text-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
             <h4>things i've made.</h4>
           </CardHeader>
         </Link>
@@ -134,6 +127,7 @@ export default function Home() {
         isHoverable
         className="col-span-4 row-span-1 content-center sm:col-span-1 p-4" // Add custom styles via class names
       >
+        <Link href="https://codeday.org">
         <div className="absolute inset-0 z-0">
           <Image
             // removeWrapper;
@@ -146,6 +140,7 @@ export default function Home() {
         <CardHeader className="text-4xl font-black text-center text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
           <h4>🡕</h4>
         </CardHeader>
+        </Link>
       </Card>
 
       <Card
@@ -172,6 +167,9 @@ export default function Home() {
         isHoverable
         className="col-span-4 row-span-1 content-center sm:col-span-1 p-4" // Add custom styles via class names
       >
+
+<Link href="mailto://ojas1807@gmail.com">
+
         <div className="absolute inset-0 z-0">
           <Image
             // removeWrapper;
@@ -184,6 +182,7 @@ export default function Home() {
         <CardHeader className="text-4xl font-black text-center text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
           <h4>email?</h4>
         </CardHeader>
+        </Link>
       </Card>
     </section>
   );
