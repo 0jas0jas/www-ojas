@@ -5,7 +5,7 @@ import { Image } from "@nextui-org/image";
 
 export default function Home() {
   return (
-    <section className="max-w-full gap-4 grid grid-cols-4">
+    <section className=" max-w-full gap-4 grid grid-cols-4">
       <Card
         // isHoverable // Makes the card respond to hover events
         // isPressable // Allows for click or press actions on the card
@@ -21,7 +21,7 @@ export default function Home() {
           <h1>
             {" "}
             <span className="font-black text-6xl">ojas srivastava</span> is
-            pursuing his bachlor's of science in mathematics and computer
+            pursuing his bachelor's of science in mathematics and computer
             science from{" "}
             <span className="font-black text-6xl">McGill University</span>.
           </h1>
@@ -148,6 +148,7 @@ export default function Home() {
         isHoverable
         className="col-span-4 row-span-1 content-center sm:col-span-1 p-4" // Add custom styles via class names
       >
+      <Link href="https://zcal.co/f1shf1sh/30min">
         <div className="absolute inset-0 z-0">
           <Image
             // removeWrapper;
@@ -159,7 +160,8 @@ export default function Home() {
 
         <CardHeader className="text-4xl font-black text-center text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
           <h4>let's meet! (online)</h4>
-        </CardHeader>
+          </CardHeader>
+          </Link>
       </Card>
 
       <Card
