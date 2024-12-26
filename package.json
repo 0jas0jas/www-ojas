@@ -1,12 +1,11 @@
 {
-	"name": "next-app-template",
+	"name": "www-ojas",
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
 		"dev": "next dev --turbopack",
-		"build": "next build",
-		"start": "next start",
-		"lint": "eslint . --ext .ts,.tsx -c .eslintrc.json --fix"
+		"build": "bun build",
+		"start": "next start"
 	},
 	"dependencies": {
 		"@nextui-org/button": "2.2.3",
