@@ -261,12 +261,12 @@ export default function Home() {
       >
         <Link href={siteConfig.links.github}>
         <div className="absolute inset-0 z-0">
-          <Image
+          {/* <Image
             removeWrapper
             src=""
             alt="hackathons"
             className=" z-0 w-full h-full scale-125 -translate-y-6 object-cover"
-          />
+          /> */}
         </div>
 
         <CardHeader className="text-5xl font-black text-center text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
