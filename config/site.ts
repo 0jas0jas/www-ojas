@@ -12,7 +12,7 @@ export const siteConfig = {
 
     {
       label: "Digital Garden🡕",
-      href: "https://0jas0jas.github.io/mon-cahier/",
+      href: "https://notebook.knowojas.com/",
     },
     {
       label: "Projects",
