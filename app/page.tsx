@@ -1,6 +1,7 @@
 import { Link } from "@nextui-org/link";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
+import { siteConfig } from "@/config/site";
 
 
 export default function Home() {
@@ -50,7 +51,7 @@ export default function Home() {
         isPressable // Allows for click or press actions on the card
         className="col-span-4 row-span-1 sm:col-span-1 p-4" // Add custom styles via class names
       >
-        <Link href="https://0jas0jas.github.io/mon-cahier/">
+        <Link href={siteConfig.notebook}>
           <CardHeader className="text-4xl font-black text-center text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
             <h4>explore my digital garden.🡕</h4>
           </CardHeader>
