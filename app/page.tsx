@@ -22,8 +22,8 @@ export default function Home() {
           <h1>
             {" "}
             <span className="font-black text-6xl">ojas srivastava</span> is
-            pursuing his bachelor's of science in mathematics and computer
-            science from{" "}
+            pursuing his bachelor's of science in <span className="underline decoration-wavy">mathematics</span> and <span className="underline decoration-wavy">computer
+            science</span> from{" "}
             <span className="font-black text-6xl">McGill University</span>.
           </h1>
         </CardHeader>
@@ -129,17 +129,83 @@ export default function Home() {
         className="col-span-4 row-span-1 content-center sm:col-span-1 p-4" // Add custom styles via class names
       >
         <Link href="https://codeday.org">
+          <div className="absolute inset-0 z-0">
+            <Image
+              // removeWrapper;
+              src="/codeday.JPG"
+              alt="codeday"
+              className=" z-0 w-full h-full scale-125 -translate-y-6 object-cover"
+            />
+          </div>
+
+          <CardHeader className="text-4xl font-black text-center text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+            <h4>🡕</h4>
+          </CardHeader>
+        </Link>
+      </Card>
+
+      <Card
+        isPressable
+        isHoverable
+        className="col-span-4 row-span-1 content-center sm:col-span-1 p-4" // Add custom styles via class names
+      >
+        <Link href="https://zcal.co/f1shf1sh/30min">
+          <div className="absolute inset-0 z-0">
+            <Image
+              // removeWrapper;
+              src="/tisme.JPG"
+              alt="ojas srivastava"
+              className=" z-0 w-full h-full scale-125 -translate-y-6 object-cover"
+            />
+          </div>
+
+          <CardHeader className="text-4xl font-black text-center text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+            <h4>let's meet! (online)</h4>
+          </CardHeader>
+        </Link>
+      </Card>
+
+      <Card
+        isPressable
+        isHoverable
+        className="col-span-4 row-span-1 content-center sm:col-span-1 p-4" // Add custom styles via class names
+      >
+
+        <Link href="mailto://ojas1807@gmail.com">
+
+          <div className="absolute inset-0 z-0">
+            <Image
+              // removeWrapper;
+              src="/lucknow.JPG"
+              alt="Lucknow"
+              className=" z-0 w-full h-full scale-125 -translate-y-6 object-cover"
+            />
+          </div>
+
+          <CardHeader className="text-4xl font-black text-center text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+            <h4>email?</h4>
+          </CardHeader>
+        </Link>
+      </Card>
+
+
+      {/* // THIS IS WHERE THE 4 THINGS END AND NEW THING BEGINS */}
+
+      <Card
+        className="col-span-4 row-span-1 sm:col-span-1 p-12" // Add custom styles via class names
+      >
+        <Link href={siteConfig.links.itch}>
         <div className="absolute inset-0 z-0">
-          <Image
-            // removeWrapper;
-            src="/codeday.JPG"
-            alt="codeday"
+          {/* <Image
+            removeWrapper
+            src="/"
+            alt="hackathons"
             className=" z-0 w-full h-full scale-125 -translate-y-6 object-cover"
-          />
+          /> */}
         </div>
 
-        <CardHeader className="text-4xl font-black text-center text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
-          <h4>🡕</h4>
+        <CardHeader className="text-3xl font-black text-center text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+          <h4>i've made <span className="underline">games</span>🡕</h4>
         </CardHeader>
         </Link>
       </Card>
@@ -149,41 +215,62 @@ export default function Home() {
         isHoverable
         className="col-span-4 row-span-1 content-center sm:col-span-1 p-4" // Add custom styles via class names
       >
-      <Link href="https://zcal.co/f1shf1sh/30min">
-        <div className="absolute inset-0 z-0">
-          <Image
-            // removeWrapper;
-            src="/tisme.JPG"
-            alt="ojas srivastava"
-            className=" z-0 w-full h-full scale-125 -translate-y-6 object-cover"
-          />
-        </div>
+          <div className="absolute inset-0 z-0">
+            <Image
+              // removeWrapper;
+              src="/speed.JPG"
+              alt="codeday"
+              className=" z-0 w-full h-full scale-125 -translate-y-6 object-cover"
+            />
+          </div>
 
-        <CardHeader className="text-4xl font-black text-center text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
-          <h4>let's meet! (online)</h4>
+          <CardHeader className="text-4xl font-black text-center text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+            <h4></h4>
           </CardHeader>
-          </Link>
       </Card>
-
       <Card
-        isPressable
-        isHoverable
-        className="col-span-4 row-span-1 content-center sm:col-span-1 p-4" // Add custom styles via class names
+        // isHoverable // Makes the card respond to hover events
+        // isPressable // Allows for click or press actions on the card
+        className="col-span-4 row-span-3 sm:col-span-2 p-12 " // Add custom styles via class names
       >
+        <CardHeader className="font-regular text-3xl leading-loose tracking-wider">
+          <h1>
+            {" "}
+            <span className="font-black text-6xl underline underline-offset-4 decoration-dashed">Paulo Coelho </span>
 
-<Link href="mailto://ojas1807@gmail.com">
+            <span className="">And, when you want something, all the universe conspires in helping you to achieve it. </span>
 
+          </h1>
+        </CardHeader>
+      </Card>
+      <Card
+        className="col-span-4 row-span-1 sm:col-span-1 p-12" // Add custom styles via class names
+      >
         <div className="absolute inset-0 z-0">
           <Image
-            // removeWrapper;
-            src="/lucknow.JPG"
-            alt="Lucknow"
+            removeWrapper
+            src="/bb.jpg"
+            alt="hackathons"
             className=" z-0 w-full h-full scale-125 -translate-y-6 object-cover"
           />
         </div>
 
-        <CardHeader className="text-4xl font-black text-center text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
-          <h4>email?</h4>
+      </Card>
+      <Card
+        className="col-span-4 row-span-1 sm:col-span-1 p-12" // Add custom styles via class names
+      >
+        <Link href={siteConfig.links.github}>
+        <div className="absolute inset-0 z-0">
+          <Image
+            removeWrapper
+            src=""
+            alt="hackathons"
+            className=" z-0 w-full h-full scale-125 -translate-y-6 object-cover"
+          />
+        </div>
+
+        <CardHeader className="text-5xl font-black text-center text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+          <h4>and other stuff🡕</h4>
         </CardHeader>
         </Link>
       </Card>

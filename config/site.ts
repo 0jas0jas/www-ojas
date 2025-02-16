@@ -56,6 +56,7 @@ export const siteConfig = {
   links: {
     github: "https://github.com/0jas0jas",
     discord: "https://discordapp.com/users/507194607117795328",
-    linkedin: "https://linkedin.com/in/0jas0jas"
+    linkedin: "https://linkedin.com/in/0jas0jas",
+    itch: "https://f1shf1sh.itch.io",
   },
 };
