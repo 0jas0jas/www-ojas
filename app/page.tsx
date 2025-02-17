@@ -236,9 +236,9 @@ export default function Home() {
         <CardHeader className="font-regular text-3xl leading-loose tracking-wider">
           <h1>
             {" "}
-            <span className="font-black text-6xl underline underline-offset-4 decoration-dashed">Paulo Coelho </span>
+            <span className="font-black text-6xl underline underline-offset-4 decoration-dashed">David Lynch </span>
 
-            <span className="">And, when you want something, all the universe conspires in helping you to achieve it. </span>
+            <span className="">Everything I learned in my life, I learned because I decided to try something new. </span>
 
           </h1>
         </CardHeader>
@@ -270,7 +270,7 @@ export default function Home() {
         </div>
 
         <CardHeader className="text-5xl font-black text-center text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
-          <h4>and other stuff🡕</h4>
+          <h4>and <span className="text-warning">other</span> stuff🡕</h4>
         </CardHeader>
         </Link>
       </Card>
