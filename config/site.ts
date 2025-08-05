@@ -21,36 +21,24 @@ export const siteConfig = {
   ],
   navMenuItems: [
     {
-      label: "Profile",
-      href: "/profile",
-    },
-    {
-      label: "Dashboard",
-      href: "/dashboard",
-    },
-    {
       label: "Projects",
       href: "/projects",
     },
     {
-      label: "Team",
-      href: "/team",
+      label: "Algebra",
+      href: "/algebra",
     },
     {
-      label: "Calendar",
-      href: "/calendar",
+      label: "Digital Garden🡕",
+      href: "https://notebook.knowojas.com/",
     },
     {
-      label: "Settings",
-      href: "/settings",
+      label: "GitHub",
+      href: "https://github.com/0jas0jas",
     },
     {
-      label: "Help & Feedback",
-      href: "/help-feedback",
-    },
-    {
-      label: "Logout",
-      href: "/logout",
+      label: "LinkedIn",
+      href: "https://linkedin.com/in/0jas0jas",
     },
   ],
   links: {

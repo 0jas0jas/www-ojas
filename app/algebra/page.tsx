@@ -14,6 +14,6 @@ export default function AlgebraPage() {
         facilisi. Nullam non ligula ac elit ultricies fermentum. Sed sit amet
         turpis
       </p>
-      </div>
+    </div>
   );
 }

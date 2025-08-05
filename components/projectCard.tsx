@@ -15,7 +15,6 @@ export interface projectCardProps {
 export const ProjectCard: FC<projectCardProps> = ({
     projectName, skills, monthYear, url, desc
 }) => {
-    console.log("Hereeee");
     return (
         <Card className=" p-4 grid grid-cols-2 gap-6">
             <CardHeader className="justify-between">
