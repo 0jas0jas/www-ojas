@@ -50,14 +50,14 @@ export const SpotifyCard = () => {
   }
 
   return (
-    <Card className="col-span-4 row-span-1 sm:col-span-1 p-4">
+    <Card className="col-span-4 row-span-1 sm:col-span-1 p-4 bg-[var(--accent)] shadow-none">
       <CardHeader>
-        <h4 className="text-2xl font-black text-center w-full">top track this month</h4>
+        <h4 className="text-2xl text-center text-[var(--bg-pri)] w-full">top track this month</h4>
       </CardHeader>
-      <CardBody className="p-0 bg-transparent border-none rounded-3xl">
+      <CardBody className="p-0 bg-transparent w-full rounded-xl">
         <iframe
           src={trackUrl}
-          width="100%"
+          width="500"
           height="152"
           frameBorder="0"
           allow="encrypted-media"

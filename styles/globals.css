@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --bg-pri: #000000;
+  --bg-sec: #9929EA;
+  --bg-ter: #CC66DA;
+  --accent: #FAEB92;
+}
+
+.text-outline {
+  -webkit-text-stroke: 8px black;
+  text-stroke: 5px black;
+  paint-order: stroke fill;
+}
