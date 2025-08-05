@@ -54,8 +54,8 @@ export const Navbar = () => {
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
-            <div className="px-3 pb-0.5 rounded-full" style={{backgroundColor: 'var(--bg-sec)'}}>
-              <p className="font-bold text-xl">ojas</p>
+            <div className="px-3 pb-0.5 rounded-full" style={{backgroundColor: 'var(--accent)'}}>
+              <p className="font-bold text-xl text-[var(--bg-pri)]">ojas</p>
             </div>
           </NextLink>
         </NavbarBrand>
