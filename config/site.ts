@@ -9,7 +9,10 @@ export const siteConfig = {
       label: "Home",
       href: "/",
     },
-
+    {
+      label: "Resume",
+      href: "/resume",
+    },
     {
       label: "Digital Garden🡕",
       href: "https://notebook.knowojas.com/",
@@ -20,6 +23,10 @@ export const siteConfig = {
     },
   ],
   navMenuItems: [
+    {
+      label: "Resume",
+      href: "/resume",
+    },
     {
       label: "Projects",
       href: "/projects",
