@@ -11,7 +11,10 @@ export default function Home() {
       <Card
         // isHoverable // Makes the card respond to hover events
         // isPressable // Allows for click or press actions on the card
-        className="col-span-4 row-span-3 sm:col-span-2 p-12 " // Add custom styles via class names
+        className="col-span-4 row-span-3 sm:col-span-2 p-12"
+        classNames={{
+          base: "card-theme-bg"
+        }}
       >
         <Image
           alt="Ojas Srivastava's profile picture"
@@ -50,7 +53,10 @@ export default function Home() {
       <Card
         isHoverable // Makes the card respond to hover events
         isPressable // Allows for click or press actions on the card
-        className="col-span-4 row-span-1 sm:col-span-1 p-4" // Add custom styles via class names
+        className="col-span-4 row-span-1 sm:col-span-1 p-4"
+        classNames={{
+          base: "card-theme-bg"
+        }}
       >
         <Link href={siteConfig.notebook}>
           <CardHeader className="text-4xl font-black text-center text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
@@ -62,7 +68,10 @@ export default function Home() {
       <Card
         isHoverable // Makes the card respond to hover events
         isPressable // Allows for click or press actions on the card
-        className="col-span-4 row-span-1 content-center sm:col-span-1 p-4 " // Add custom styles via class names
+        className="col-span-4 row-span-1 content-center sm:col-span-1 p-4"
+        classNames={{
+          base: "card-theme-bg"
+        }}
       >
         <Link href="/projects">
           <CardHeader className="text-4xl font-black text-white text-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
@@ -201,7 +210,10 @@ export default function Home() {
       {/* // THIS IS WHERE THE 4 THINGS END AND NEW THING BEGINS */}
 
       <Card
-        className="col-span-4 row-span-1 sm:col-span-1 p-12" // Add custom styles via class names
+        className="col-span-4 row-span-1 sm:col-span-1 p-12"
+        classNames={{
+          base: "card-theme-bg"
+        }}
       >
         <Link href={siteConfig.links.itch}>
           <div className="absolute inset-0 z-0">
@@ -242,19 +254,19 @@ export default function Home() {
         // isPressable // Allows for click or press actions on the card
         className="col-span-4 row-span-3 sm:col-span-2 p-12 " // Add custom styles via class names
       >
-        <CardHeader className="font-regular text-3xl leading-loose tracking-wider">
-          <h1>
-            {" "}
-            <span className="font-black text-6xl underline underline-offset-4 decoration-dashed">David Lynch </span>
+        <Image
+          removeWrapper
+          src="/firewalkwithme.jpg"
+          alt="firewalkwithme"
+          className=" z-0 w-full h-full scale-125 object-cover"
+        />
 
-            <span className="">Everything I learned in my life, I learned because I decided to try something new. </span>
-
-          </h1>
-        </CardHeader>
       </Card>
-      <SpotifyCard />
       <Card
-        className="col-span-4 row-span-1 sm:col-span-1 p-12" // Add custom styles via class names
+        className="col-span-4 row-span-1 sm:col-span-1 p-12"
+        classNames={{
+          base: "card-theme-bg"
+        }}
       >
         <Link href={siteConfig.links.github}>
           <div className="absolute inset-0 z-0">

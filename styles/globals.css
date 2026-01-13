@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    background-image: url('/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  
+  body {
+    background-color: transparent;
+  }
+}
+
+@layer components {
+  /* Make cards use theme colors with transparency */
+  .card-theme-bg {
+    background-color: hsl(var(--nextui-content1) / 0.9) !important;
+    backdrop-filter: blur(8px);
+  }
+}

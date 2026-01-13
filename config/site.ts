@@ -6,10 +6,6 @@ export const siteConfig = {
   notebook: "https://notebook.knowojas.com",
   navItems: [
     {
-      label: "Home",
-      href: "/",
-    },
-    {
       label: "Resume",
       href: "/resume",
     },

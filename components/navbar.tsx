@@ -32,7 +32,7 @@ export const Navbar = () => {
     <Input
       aria-label="Search"
       classNames={{
-        inputWrapper: "bg-default-100",
+        inputWrapper: "",
         input: "text-sm",
       }}
       endContent={
@@ -50,7 +50,14 @@ export const Navbar = () => {
   );
 
   return (
-    <NextUINavbar maxWidth="xl" position="sticky">
+    <NextUINavbar 
+      maxWidth="xl" 
+      position="sticky"
+      classNames={{
+        base: "bg-transparent",
+        wrapper: "bg-transparent",
+      }}
+    >
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
@@ -90,7 +97,6 @@ export const Navbar = () => {
             <GithubIcon className="text-default-500" />
           </Link>
 
-          <ThemeSwitch />
         </NavbarItem>
       </NavbarContent>
 
