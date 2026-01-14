@@ -3,18 +3,17 @@ export type SiteConfig = typeof siteConfig;
 export const siteConfig = {
   name: "Ojas",
   description: "ojas' website full of ojas' things.",
-  notebook: "https://notebook.knowojas.com",
   navItems: [
     {
       label: "Resume",
       href: "/resume",
     },
     {
-      label: "Digital Garden🡕",
+      label: "digital garden",
       href: "https://notebook.knowojas.com/",
     },
     {
-      label: "Projects",
+      label: "projects",
       href: "/projects",
     },
   ],
@@ -28,19 +27,19 @@ export const siteConfig = {
       href: "/projects",
     },
     {
-      label: "Algebra",
+      label: "algebra",
       href: "/algebra",
     },
     {
-      label: "Digital Garden🡕",
+      label: "digital garden",
       href: "https://notebook.knowojas.com/",
     },
     {
-      label: "GitHub",
+      label: "github",
       href: "https://github.com/0jas0jas",
     },
     {
-      label: "LinkedIn",
+      label: "linkedin",
       href: "https://linkedin.com/in/0jas0jas",
     },
   ],

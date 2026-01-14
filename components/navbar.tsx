@@ -16,7 +16,7 @@ import NextLink from "next/link";
 import clsx from "clsx";
 
 import { siteConfig } from "@/config/site";
-import { ThemeSwitch } from "@/components/theme-switch";
+
 import {
   TwitterIcon,
   GithubIcon,
@@ -61,7 +61,9 @@ export const Navbar = () => {
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
-            <p className="font-bold text-inherit">ojas</p>
+            <div className="px-3 pb-0.5 rounded-full" style={{backgroundColor: 'var(--accent)'}}>
+              <p className="font-bold text-xl text-[var(--bg-pri)]">ojas</p>
+            </div>
           </NextLink>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-4 justify-start ml-2">
@@ -72,7 +74,7 @@ export const Navbar = () => {
                   linkStyles({ color: "foreground" }),
                   "data-[active=true]:text-primary data-[active=true]:font-medium",
                 )}
-                color="foreground"
+                style={{color: 'var(--accent)'}}
                 href={item.href}
               >
                 {item.label}
@@ -88,13 +90,13 @@ export const Navbar = () => {
       >
         <NavbarItem className="hidden sm:flex gap-2">
           <Link isExternal aria-label="Discord" href={siteConfig.links.discord}>
-            <DiscordIcon className="text-default-500" />
+            <DiscordIcon style={{color: 'var(--accent)'}} />
           </Link>
           <Link isExternal aria-label="LinkedIn" href={siteConfig.links.linkedin}>
-            <LinkedinIcon className="text-default-500" />
+            <LinkedinIcon style={{color: 'var(--accent)'}} />
           </Link>
           <Link isExternal aria-label="Github" href={siteConfig.links.github}>
-            <GithubIcon className="text-default-500" />
+            <GithubIcon style={{color: 'var(--accent)'}} />
           </Link>
 
         </NavbarItem>
@@ -102,9 +104,8 @@ export const Navbar = () => {
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
         <Link isExternal aria-label="Github" href={siteConfig.links.github}>
-          <GithubIcon className="text-default-500" />
+          <GithubIcon style={{color: 'var(--accent)'}} />
         </Link>
-        <ThemeSwitch />
         <NavbarMenuToggle />
       </NavbarContent>
 

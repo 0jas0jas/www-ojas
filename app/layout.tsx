@@ -6,7 +6,7 @@ import clsx from "clsx";
 import { Providers } from "./providers";
 
 import { siteConfig } from "@/config/site";
-import { fontSans } from "@/config/fonts";
+import { fontSans, fontMono } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
 
 export const metadata: Metadata = {
@@ -39,12 +39,14 @@ export default function RootLayout({
         className={clsx(
           "min-h-screen font-sans antialiased",
           fontSans.variable,
+          fontMono.variable,
         )}
+        style={{backgroundColor: 'var(--bg-pri)'}}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <div className="relative flex flex-col h-screen">
+          <div className="relative flex flex-col min-h-screen" style={{backgroundColor: 'var(--black)'}}>
             <Navbar />
-            <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
+            <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow" style={{backgroundColor: 'var(--black)'}}>
               {children}
             </main>
           </div>

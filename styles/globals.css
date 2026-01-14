@@ -23,3 +23,16 @@
     backdrop-filter: blur(8px);
   }
 }
+
+:root {
+  --bg-pri: #000000;
+  --bg-sec: #37004D;
+  --bg-ter: #3F0001;
+  --accent: #FFD445;
+}
+
+.text-outline {
+  -webkit-text-stroke: 8px black;
+  text-stroke: 5px black;
+  paint-order: stroke fill;
+}
