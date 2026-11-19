@@ -1,25 +1,22 @@
-import { Roboto as FontMono } from "next/font/google";
-import localFont from "next/font/local";
+import { Anton, Permanent_Marker, Special_Elite } from "next/font/google";
 
-export const fontSans = localFont({
-  src: [
-    {
-      path: "../public/fonts/BluuNext-Bold.otf",
-      weight: "700",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/BluuNext-Bolditalic.otf",
-      weight: "700",
-      style: "italic",
-    },
-  ],
-  variable: "--font-sans",
+export const fontAnton = Anton({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-anton",
   display: "swap",
 });
 
-export const fontMono = FontMono({
+export const fontMarker = Permanent_Marker({
   subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-mono",
+  weight: "400",
+  variable: "--font-marker",
+  display: "swap",
+});
+
+export const fontElite = Special_Elite({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-elite",
+  display: "swap",
 });

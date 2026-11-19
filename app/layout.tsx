@@ -1,13 +1,9 @@
 import "@/styles/globals.css";
 import { Metadata, Viewport } from "next";
-import { Link } from "@nextui-org/link";
 import clsx from "clsx";
 
-import { Providers } from "./providers";
-
 import { siteConfig } from "@/config/site";
-import { fontSans, fontMono } from "@/config/fonts";
-import { Navbar } from "@/components/navbar";
+import { fontAnton, fontElite, fontMarker } from "@/config/fonts";
 
 export const metadata: Metadata = {
   title: {
@@ -21,37 +17,20 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
+  themeColor: "#3a3a3a",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+// Sets the wall's scale before first paint so it never flashes at the wrong size.
+// Keep in sync with wallScale() in components/wall/Wall.tsx.
+const scaleScript = `(function(){var w=window.innerWidth,s=window.innerHeight/900;if(w<640)s=Math.min(s,w/560);document.documentElement.style.setProperty('--s',String(s));})();`;
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html suppressHydrationWarning lang="en">
-      <head />
-      <body
-        className={clsx(
-          "min-h-screen font-sans antialiased",
-          fontSans.variable,
-          fontMono.variable,
-        )}
-        style={{backgroundColor: 'var(--bg-pri)'}}
-      >
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <div className="relative flex flex-col min-h-screen" style={{backgroundColor: 'var(--black)'}}>
-            <Navbar />
-            <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow" style={{backgroundColor: 'var(--black)'}}>
-              {children}
-            </main>
-          </div>
-        </Providers>
-      </body>
+    <html lang="en" className={clsx(fontAnton.variable, fontMarker.variable, fontElite.variable)}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: scaleScript }} />
+      </head>
+      <body className="min-h-screen antialiased">{children}</body>
     </html>
   );
 }

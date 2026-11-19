@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" preserveAspectRatio="none">
+  <defs>
+    <filter id="dirt" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".011" numOctaves="4" seed="11"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 .38  0 0 0 0 .3  0 0 0 0 .22  -2.4 0 0 0 1.25"/>
+    </filter>
+    <linearGradient id="topshade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b2016" stop-opacity=".7"/>
+      <stop offset=".3" stop-color="#2b2016" stop-opacity="0"/>
+      <stop offset=".82" stop-color="#2b2016" stop-opacity="0"/>
+      <stop offset="1" stop-color="#140d08" stop-opacity=".75"/>
+    </linearGradient>
+    <radialGradient id="vig" cx=".45" cy=".42" r=".75">
+      <stop offset=".5" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity=".8"/>
+    </radialGradient>
+  </defs>
+  <rect width="1440" height="900" filter="url(#dirt)" opacity=".6"/>
+  <rect width="1440" height="900" fill="url(#topshade)"/>
+  <rect width="1440" height="900" fill="url(#vig)"/>
+</svg>

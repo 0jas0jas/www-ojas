@@ -1,40 +1,22 @@
 "use client";
 
 import { useEffect } from "react";
-import { Button } from "@nextui-org/button";
-import { Card, CardBody, CardHeader } from "@nextui-org/card";
 
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error;
-  reset: () => void;
-}) {
+export default function Error({ error, reset }: { error: Error; reset: () => void }) {
   useEffect(() => {
-    // Log the error to an error reporting service
     console.error(error);
   }, [error]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <Card className="max-w-md">
-        <CardHeader>
-          <h2 className="text-xl font-bold text-danger">Something went wrong!</h2>
-        </CardHeader>
-        <CardBody>
-          <p className="text-default-600 mb-4">
-            An unexpected error occurred. Please try again.
-          </p>
-          <Button 
-            color="primary" 
-            onClick={() => reset()}
-            className="w-full"
-          >
-            Try again
-          </Button>
-        </CardBody>
-      </Card>
+    <div className="plaster flex min-h-screen items-center justify-center p-4">
+      <div className="relative max-w-md -rotate-[0.5deg] bg-[var(--sticky)] p-8 pt-10 text-[var(--ink)] shadow-[0_14px_28px_rgba(0,0,0,.6)]">
+        <span className="pin" />
+        <h2 className="anton text-4xl">something fell off the wall</h2>
+        <p className="marker mt-3 text-lg">an unexpected error happened. give it another go.</p>
+        <button type="button" onClick={() => reset()} className="anton mt-6 h-12 w-full bg-[var(--ink)] text-xl text-[var(--paper)]">
+          try again
+        </button>
+      </div>
     </div>
   );
 }

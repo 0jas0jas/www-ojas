@@ -1,98 +1,45 @@
-import { title } from "@/components/primitives";
-import { ProjectCard } from "@/components/projectCard";
-import { Divider } from "@nextui-org/divider";
+import type { Metadata } from "next";
+import { projects } from "@/content/projects";
+
+export const metadata: Metadata = {
+  title: "things i've made",
+  description: "Projects by Ojas: apps, games, ML experiments and workshops.",
+};
+
+const tilts = [-2, 1.5, -1, 2.5, -2.5, 1, -1.5, 2];
+const papers = ["var(--paper)", "var(--paper-white)", "var(--kraft)", "var(--paper)", "#F2D7C9"];
 
 export default function ProjectsPage() {
-  const projectData = [
-    {
-      projectName: "Popcorn",
-      skills: "React, Python, NextJs, Scikit-learn",
-      monthYear: "Apr. 2024",
-      url: "https://github.com/0jas0jas/popcorn",
-      desc: `Built a Next.js app that matches your Spotify playlists with movie recommendations. Collected over 10,000 songs and movies by web scraping and trained a machine learning model that got an 85% accuracy rate.`,
-    },
-    {
-      projectName: "Where’s My Jam?",
-      skills: "Next.js, FastAPI, Python",
-      monthYear: "Nov. 2024",
-      url: "https://github.com/0jas0jas/codejam14",
-      desc: `Developed a gamified grocery app with four interactive modes, enhancing user engagement. Implemented a health-tracking system and recipe suggestions using barcode scanning. Leveraged Next.js for frontend, FastAPI for backend, and Python for functionality.`,
-    },
-    {
-      projectName: "McMayhem",
-      skills: "Godot, GDScript",
-      monthYear: "Jan. 2024",
-      url: "https://github.com/richardbonneau/McGameJam2024",
-      desc: `Completed a 48-hour GameJam with a 3-member team, reconfiguring 10+ 3D models. Achieved recognition as one of the top 5 games out of 50 entries.`,
-    },
-    {
-      projectName: "Conway’s Game of Life",
-      skills: "JavaScript, HTML/CSS",
-      monthYear: "Jun. 2023",
-      url: "https://github.com/0jas0jas/conways-game-of-life",
-      desc: `Implemented a mathematical simulation using Vanilla JavaScript, developing a 3-dimensional data structure and enhancing performance by 20%.`,
-    },
-    {
-      projectName: "Mon Cahier",
-      skills: "GoLang, JavaScript, Web Development",
-      monthYear: "May. 2023",
-      url: "https://github.com/0jas0jas/mon-cahier",
-      desc: `Developed a blog on Computer Science and Mathematics, attracting over 1,000 monthly readers. Published 15+ articles and deployed using Hugo static site generator.`,
-    },
-    {
-      projectName: "Can Computer Vision be Trusted with Autonomous Vehicles yet?",
-      skills: "Python, OpenCV",
-      monthYear: "Mar. 2022",
-      url: "https://github.com/0jas0jas/computer-vision-autonomous-vehicles",
-      desc: `Implemented a real-time Computer Vision system with 95% detection accuracy, achieving an A-grade for a Cambridge International Project Qualification.`,
-    },
-    {
-      projectName: "ChatBot with Python Workshop",
-      skills: "Python, Pytz, Chatterbot",
-      monthYear: "Jan. 2023",
-      url: "https://github.com/0jas0jas/chatbot-workshop",
-      desc: `Developed an AI ChatBot using Python, handling 1,000+ queries and trained for specialized interactions. Conducted a workshop with 50+ participants.`,
-    },
-    {
-      projectName: "YouTube Comment Analyzer",
-      skills: "Python, NumPy, pandas",
-      monthYear: "Jun. 2023",
-      url: "https://github.com/0jas0jas/youtube-comment-analyzer",
-      desc: `Developed a classification model for YouTube comment analysis, achieving 86.7% accuracy using a dataset with over 1 million comments.`,
-    },
-    {
-      projectName: "TrieApplication",
-      skills: "JavaScript, Axios, Figlet",
-      monthYear: "Jun. 2023",
-      url: "https://github.com/0jas0jas/trie-application",
-      desc: `Developed a custom trie data structure for search applications, handling 10,000+ entries, with efficient data retrieval methods.`,
-    },
-    {
-      projectName: "ChordsIdentifier",
-      skills: "JavaScript, HTML/CSS, Google Teachable Machine",
-      monthYear: "Jun. 2023",
-      url: "https://github.com/0jas0jas/chords-identifier",
-      desc: `Created a classification model for guitar chord detection, achieving 80% accuracy. Won the NeoHacks hackathon for innovative use of ML.`,
-    },
-  ];
-
   return (
-    <div>
-      <h1 className={title()}>Things I've Made</h1>
-      <Divider />
-      <div className="h-24"></div>
-      <div className="grid grid-cols-1 gap-8">
-        {projectData.map((project, index) => (
-          <ProjectCard
-            key={index}
-            projectName={project.projectName}
-            skills={project.skills}
-            monthYear={project.monthYear}
-            url={project.url}
-            desc={project.desc}
-          />
-        ))}
+    <>
+      <div className="-rotate-[0.5deg]">
+        <h1 className="anton text-6xl leading-none text-[var(--paper)] sm:text-8xl">things i&apos;ve made</h1>
+        <p className="marker mt-2 text-xl text-[var(--orange)]">{projects.length} flyers. click one to see the code.</p>
       </div>
-    </div>
+
+      <ul className="mt-12 grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+        {projects.map((p, i) => (
+          <li key={p.url}>
+            <a
+              href={p.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="piece piece-hover relative flex h-full flex-col gap-3 p-6 pt-8"
+              style={{ position: "relative", background: papers[i % papers.length], ["--r" as string]: `${tilts[i % tilts.length]}deg` }}
+            >
+              <span className="tape" />
+              <div className="flex items-baseline justify-between gap-3 text-xs tracking-[.2em]">
+                <span>NO. {String(i + 1).padStart(2, "0")}</span>
+                <span>{p.monthYear.toUpperCase()}</span>
+              </div>
+              <h2 className="anton text-4xl leading-[.95]">{p.projectName}</h2>
+              <p className="border-t-2 border-[var(--ink)] pt-2 text-sm">{p.skills}</p>
+              <p className="text-[15px] leading-relaxed">{p.desc}</p>
+              <span className="anton mt-auto pt-2 text-xl text-[var(--red)]">see the code ↗</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }
