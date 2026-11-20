@@ -24,7 +24,13 @@ export const DoodlePad = forwardRef<DoodleHandle, { background: string }>(functi
   const [eraser, setEraser] = useState(false);
 
   useImperativeHandle(ref, () => ({
-    toBlob: () => new Promise((resolve) => canvas.current?.toBlob((b) => resolve(b), "image/png") ?? resolve(null)),
+    // canvas.toBlob() returns undefined and calls back later, so only fall back to null when there's no canvas
+    toBlob: () =>
+      new Promise((resolve) => {
+        const c = canvas.current;
+        if (!c) return resolve(null);
+        c.toBlob((b) => resolve(b), "image/png");
+      }),
     isEmpty: () => !drawn.current,
     clear,
   }));
