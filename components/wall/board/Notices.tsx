@@ -6,6 +6,7 @@ import { m, type Transition } from "motion/react";
 
 import { NOTE_COLORS, type GuestPost } from "@/lib/guest";
 import { TILT } from "@/content/zones";
+import { ANON_AUTHORS } from "@/content/authors";
 
 /* ───────── paper ───────── */
 
@@ -175,7 +176,7 @@ function Parchment({
 export function NoticePiece({ post, x, y, z, held, fresh, onPointerDown }: PieceProps) {
   const rotate = post.rotate * TILT * 2;
   const tint = tintOf(post.color);
-  const sig = post.name ? `— ${post.name}` : "— a visitor";
+  const sig = `— ${post.name || ANON_AUTHORS[hash(post.id) % ANON_AUTHORS.length]}`;
 
   const wrap = (w: number, hgt: number, body: ReactNode) => (
     <m.div

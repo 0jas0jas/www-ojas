@@ -1,0 +1,35 @@
+/**
+ * Who "signs" a guest wall post when the visitor left the name blank.
+ * Picked from the post id, so the same post always gets the same author. Nothing is saved.
+ */
+export const ANON_AUTHORS = [
+  "Geralt of Rivia",
+  "Cirilla Fiona Elen Riannon",
+  "Julian Alfred Pankratz, Viscount de Lettenhove",
+  "Emiel Regis Rohellec Terzieff-Godefroy",
+  "Cahir Mawr Dyffryn aep Ceallach",
+  "Maria Barring",
+  "Gaunter O’Dimm",
+  "Robert John Linder (Johnny Silverhand)",
+  "Judy Álvarez",
+  "Panam Palmer",
+  "Goro Takemura",
+  "Rogue Amendiares",
+  "Viktor Vektor",
+  "Alt Cunningham",
+  "Kerry Eurodyne",
+  "Dexter DeShawn",
+  "Saburo Arasaka",
+  "Yorinobu Arasaka",
+  "Hanako Arasaka",
+  "Adam Smasher",
+  "Solomon Reed",
+  "So Mi (Songbird)",
+  "Lucyna Kushinada (Lucy)",
+  "David Martinez",
+  "Maxine Caulfield",
+  "Victoria Chase",
+  "Rachel Amber",
+  "Sean Diaz",
+  "Daniel Diaz",
+];
