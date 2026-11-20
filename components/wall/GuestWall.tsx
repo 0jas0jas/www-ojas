@@ -2,15 +2,17 @@
 
 import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
-import { AnimatePresence, m, type Transition } from "motion/react";
+import { m, type Transition } from "motion/react";
 
-import { DoodlePad, type DoodleHandle } from "./DoodlePad";
+import { type DoodleHandle } from "./DoodlePad";
 import { beginDrag } from "./drag";
 import { LIMITS, NOTE_COLORS, type GuestKind, type GuestPost } from "@/lib/guest";
-import { TILT } from "@/content/zones";
+import { Board } from "./board/Board";
+import { NoticePiece, SpotGhost } from "./board/Notices";
+import { NoticeForm } from "./board/NoticeForm";
 
 const SPOT_ID = "__spot";
-const CLIPBOARD_ID = "__clipboard";
+const FORM_ID = "__form";
 const SPOT_W = 200;
 const SPOT_H = 180;
 
@@ -31,10 +33,7 @@ const randomSpot = () => {
   };
 };
 
-/** A note being slapped onto the wall: drops in big, overshoots, settles. */
-const slap: Transition = { type: "spring", stiffness: 520, damping: 17, mass: 0.9 };
 const glide: Transition = { type: "spring", stiffness: 300, damping: 28 };
-const tabFade: Transition = { duration: 0.14, ease: "easeOut" };
 
 /** Shrinks a photo to ≤1200px WebP (JPEG fallback) before upload. */
 async function compressImage(file: File): Promise<Blob> {
@@ -51,10 +50,11 @@ async function compressImage(file: File): Promise<Blob> {
   return jpg;
 }
 
+/** The guest wall: a village notice board visitors nail notices, doodles and WANTED posters to. */
 export function GuestWall() {
   const [posts, setPosts] = useState<GuestPost[]>([]);
   const [freshId, setFreshId] = useState<string | null>(null);
-  // where your post will land: starts somewhere random, and you drag the box to move it
+  // where your post will land: starts somewhere random, and you drag the outline to move it
   const [spot, setSpot] = useState<{ x: number; y: number } | null>(null);
   const [spotKey, setSpotKey] = useState(0);
   // things visitors have moved around (not saved) + who's on top
@@ -64,6 +64,7 @@ export function GuestWall() {
   const zTop = useRef(100);
   const [tab, setTab] = useState<GuestKind>("note");
   const [color, setColor] = useState<string>(NOTE_COLORS[0].hex);
+  const [heading, setHeading] = useState("");
   const [text, setText] = useState("");
   const [name, setName] = useState("");
   const [caption, setCaption] = useState("");
@@ -81,7 +82,7 @@ export function GuestWall() {
     setSpot(randomSpot());
   }, []);
 
-  /** Pick something up: posts, the "yours goes here" box, the clipboard. */
+  /** Pick something up: posts, the "yours goes here" outline, the form. */
   const grab = (id: string, from: { x: number; y: number }, e: React.PointerEvent, limit?: (x: number, y: number) => { x: number; y: number }) => {
     beginDrag(e, {
       from,
@@ -97,7 +98,7 @@ export function GuestWall() {
       onDrop: () => setHeld(null),
     });
   };
-  const clipboard = moved[CLIPBOARD_ID] ?? { x: 940, y: 40 };
+  const formPos = moved[FORM_ID] ?? { x: 940, y: 40 };
 
   const pickPhoto = async (file?: File) => {
     if (!file) return;
@@ -123,7 +124,8 @@ export function GuestWall() {
     fd.set("website", trap.current?.value ?? ""); // honeypot: people never see it, bots fill it in
     if (tab === "note") {
       if (!text.trim()) return setStatus({ kind: "error", msg: "write something first" });
-      fd.set("text", text.trim());
+      // the heading travels as a prefix ("LOST: …"), see splitHeading()
+      fd.set("text", heading ? `${heading}: ${text.trim()}` : text.trim());
       fd.set("color", color);
     } else if (tab === "doodle") {
       if (!doodle.current || doodle.current.isEmpty()) return setStatus({ kind: "error", msg: "draw something first" });
@@ -144,15 +146,16 @@ export function GuestWall() {
       setFreshId(data.post.id);
       setPosts((p) => [data.post, ...p]);
       setZOrder((z) => ({ ...z, [data.post.id]: ++zTop.current }));
-      // the box moves on to a new random spot for the next one
+      // the outline moves on to a new random spot for the next one
       setSpot(randomSpot());
       setSpotKey((k) => k + 1);
       setText("");
+      setHeading("");
       setCaption("");
       doodle.current?.clear();
       if (photo) URL.revokeObjectURL(photo.url);
       setPhoto(null);
-      setStatus({ kind: "done", msg: "stuck it up. thanks!" });
+      setStatus({ kind: "done", msg: "nailed it up. thanks!" });
     } catch (err) {
       setStatus({ kind: "error", msg: (err as Error).message });
     }
@@ -160,19 +163,21 @@ export function GuestWall() {
 
   return (
     <>
-      <div style={{ position: "absolute", left: 60, top: 40, transform: "rotate(-0.75deg)", pointerEvents: "none" }}>
-        <h2 className="anton" style={{ margin: 0, fontSize: 120, lineHeight: 0.9, color: "var(--paper)", fontWeight: 400 }}>
-          your turn.
+      <Board />
+      {/* the roof needs the space above the board, so the heading sits small, on one line */}
+      <div style={{ position: "absolute", left: 60, top: 14, transform: "rotate(-0.75deg)", pointerEvents: "none", display: "flex", alignItems: "baseline", gap: 28 }}>
+        <h2 className="anton" style={{ margin: 0, fontSize: 80, lineHeight: 0.9, color: "var(--paper)", fontWeight: 400 }}>
+          notice board.
         </h2>
-        <div className="marker" style={{ fontSize: 26, color: "var(--orange)", paddingTop: 6 }}>
-          stick something up. it goes live right away.
+        <div className="marker" style={{ fontSize: 22, color: "var(--orange)", paddingTop: 6 }}>
+          If you need a witcher, herbalist or something.
         </div>
       </div>
 
       {[...posts].reverse().map((p) => {
         const pos = moved[p.id] ?? { x: p.x, y: p.y };
         return (
-          <GuestPiece
+          <NoticePiece
             key={p.id}
             post={p}
             x={pos.x}
@@ -185,7 +190,7 @@ export function GuestWall() {
         );
       })}
 
-      {/* where your post will land. Drag it; it can only go where posts are allowed. */}
+      {/* where your post will land: an empty notice outline. Drag it; it can only go where posts are allowed. */}
       {spot && (
         <m.div
           key={spotKey}
@@ -202,266 +207,41 @@ export function GuestWall() {
             top: spot.y,
             zIndex: held === SPOT_ID ? 9001 : 9000,
             rotate: 0.5,
-            width: 200,
-            height: 180,
-            boxSizing: "border-box",
-            border: "3px dashed var(--orange)",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 6,
-            color: "var(--orange)",
-            textAlign: "center",
+            width: SPOT_W,
+            height: SPOT_H,
             cursor: held === SPOT_ID ? "grabbing" : "grab",
             userSelect: "none",
-            background: "rgba(22,17,13,.35)",
           }}
         >
-          <div className="marker" style={{ fontSize: 22 }}>yours goes here</div>
-          <div style={{ fontSize: 12, padding: "0 10px" }}>drag me to where you want it</div>
+          <SpotGhost />
         </m.div>
       )}
 
-      {/* the clipboard (grab it by the wood; the form fields still work normally) */}
-      <m.div
-        className={clsx("piece", held === CLIPBOARD_ID && "is-held")}
-        data-drag
-        initial={false}
-        animate={{ rotate: held === CLIPBOARD_ID ? 0 : 0.25, scale: held === CLIPBOARD_ID ? 1.02 : 1 }}
-        transition={glide}
-        onPointerDown={(e) => grab(CLIPBOARD_ID, clipboard, e)}
-        style={{
-          left: clipboard.x,
-          top: clipboard.y,
-          zIndex: zOrder[CLIPBOARD_ID],
-          width: 450,
-          height: 790,
-          background: "#7a4b2c",
-          borderRadius: 14,
-          padding: "46px 18px 18px",
-          filter: "none",
-        }}
-      >
-        <div style={{ position: "absolute", left: 150, top: -10, width: 150, height: 46, background: "linear-gradient(#d8d8d8,#8d8d8d)", borderRadius: "8px 8px 4px 4px", boxShadow: "0 4px 6px rgba(0,0,0,.5)" }} />
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            submit();
-          }}
-          style={{ background: "var(--paper)", height: "100%", boxSizing: "border-box", padding: "22px 24px", display: "flex", flexDirection: "column", gap: 14, color: "var(--ink)" }}
-        >
-          <div className="anton" style={{ fontSize: 34, lineHeight: 1 }}>put something on the wall</div>
-
-          <div role="tablist" aria-label="What to post" style={{ display: "flex", gap: 8 }}>
-            {(["note", "doodle", "photo"] as const).map((t) => (
-              <button
-                key={t}
-                type="button"
-                role="tab"
-                aria-selected={tab === t}
-                onClick={() => {
-                  setTab(t);
-                  setStatus({ kind: "idle" });
-                }}
-                className="elite"
-                style={{ flex: 1, height: 44, border: "2px solid var(--ink)", fontSize: 16, cursor: "pointer", background: tab === t ? "var(--ink)" : "transparent", color: tab === t ? "var(--paper)" : "var(--ink)" }}
-              >
-                {t}
-              </button>
-            ))}
-          </div>
-
-          <AnimatePresence mode="wait" initial={false}>
-          <m.div
-            key={tab}
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-            transition={tabFade}
-            style={{ display: "flex", flexDirection: "column", gap: 14 }}
-          >
-          {tab === "note" && (
-            <>
-              <div>
-                <label className="lbl" htmlFor="g-note">YOUR NOTE · {LIMITS.text} CHARACTERS MAX</label>
-                <textarea
-                  id="g-note"
-                  className="field marker"
-                  rows={4}
-                  maxLength={LIMITS.text}
-                  value={text}
-                  onChange={(e) => setText(e.target.value)}
-                  placeholder="say hi, recommend a film, leave a riddle…"
-                  style={{ resize: "none", fontSize: 18, background: color }}
-                />
-              </div>
-              <ColorPicker color={color} setColor={setColor} />
-            </>
-          )}
-
-          {tab === "doodle" && (
-            <>
-              <DoodlePad ref={doodle} background={color} />
-              <ColorPicker color={color} setColor={setColor} />
-            </>
-          )}
-
-          {tab === "photo" && (
-            <>
-              <label
-                htmlFor="g-photo"
-                style={{ height: 190, border: "3px dashed var(--ink)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8, textAlign: "center", cursor: "pointer", padding: 12, overflow: "hidden" }}
-                onDragOver={(e) => e.preventDefault()}
-                onDrop={(e) => {
-                  e.preventDefault();
-                  pickPhoto(e.dataTransfer.files[0]);
-                }}
-              >
-                {photo ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={photo.url} alt="Your photo" style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "contain" }} />
-                ) : (
-                  <>
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <rect x="3" y="5" width="18" height="15" rx="2" />
-                      <circle cx="12" cy="12.5" r="3.5" />
-                      <path d="M8 5 L9.5 3 H14.5 L16 5" />
-                    </svg>
-                    <span style={{ fontSize: 16 }}>drop a photo or tap to choose</span>
-                    <span style={{ fontSize: 12 }}>any image · it becomes a polaroid</span>
-                  </>
-                )}
-              </label>
-              <input id="g-photo" type="file" accept="image/*" style={{ display: "none" }} onChange={(e) => pickPhoto(e.target.files?.[0])} />
-              <div>
-                <label className="lbl" htmlFor="g-cap">CAPTION</label>
-                <input id="g-cap" className="field" type="text" maxLength={LIMITS.caption} value={caption} onChange={(e) => setCaption(e.target.value)} placeholder="write on the bottom of the polaroid" />
-              </div>
-            </>
-          )}
-          </m.div>
-          </AnimatePresence>
-
-          <div>
-            <label className="lbl" htmlFor="g-name">SIGN IT (OPTIONAL)</label>
-            <input id="g-name" className="field" type="text" maxLength={LIMITS.name} value={name} onChange={(e) => setName(e.target.value)} placeholder="your name or handle" />
-          </div>
-
-          {/* honeypot: hidden from people and screen readers; anything typed here gets the post rejected */}
-          <input ref={trap} type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ position: "absolute", left: -9999, width: 1, height: 1, opacity: 0 }} />
-
-          <div style={{ flex: 1 }} />
-          {status.msg && (
-            <div role="status" style={{ fontSize: 14, color: status.kind === "error" ? "var(--red)" : "var(--ink)" }}>
-              {status.msg}
-            </div>
-          )}
-          <button
-            type="submit"
-            disabled={status.kind === "busy"}
-            className="anton"
-            style={{ height: 60, border: "none", background: "var(--ink)", color: "var(--paper)", fontSize: 28, cursor: status.kind === "busy" ? "wait" : "pointer" }}
-          >
-            {status.kind === "busy" ? "sticking…" : "stick it up →"}
-          </button>
-          <div style={{ fontSize: 12, lineHeight: 1.4, color: "#4a4038" }}>Goes up instantly. Be nice-ish: ojas takes down anything nasty.</div>
-        </form>
-      </m.div>
+      <NoticeForm
+        pos={formPos}
+        z={zOrder[FORM_ID]}
+        held={held === FORM_ID}
+        onGrab={(e) => grab(FORM_ID, formPos, e)}
+        onSubmit={submit}
+        tab={tab}
+        setTab={setTab}
+        color={color}
+        setColor={setColor}
+        heading={heading}
+        setHeading={setHeading}
+        text={text}
+        setText={setText}
+        name={name}
+        setName={setName}
+        caption={caption}
+        setCaption={setCaption}
+        photo={photo}
+        pickPhoto={pickPhoto}
+        status={status}
+        clearStatus={() => setStatus({ kind: "idle" })}
+        doodle={doodle}
+        trap={trap}
+      />
     </>
-  );
-}
-
-function ColorPicker({ color, setColor }: { color: string; setColor: (c: string) => void }) {
-  return (
-    <div>
-      <span className="lbl">STICKY COLOR</span>
-      <div style={{ display: "flex", gap: 10 }}>
-        {NOTE_COLORS.map((c) => (
-          <button
-            key={c.hex}
-            type="button"
-            aria-label={c.name}
-            aria-pressed={color === c.hex}
-            onClick={() => setColor(c.hex)}
-            style={{ width: 44, height: 44, cursor: "pointer", background: c.hex, border: color === c.hex ? "4px solid var(--ink)" : "2px solid rgba(22,17,13,.35)" }}
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function GuestPiece({
-  post,
-  x,
-  y,
-  z,
-  held,
-  fresh,
-  onPointerDown,
-}: {
-  post: GuestPost;
-  x: number;
-  y: number;
-  z?: number;
-  held: boolean;
-  fresh: boolean;
-  onPointerDown: (e: React.PointerEvent) => void;
-}) {
-  const rotate = post.rotate * TILT;
-  const base = { left: x, top: y, zIndex: z };
-  const sig = post.name ? `— ${post.name}` : "— a visitor";
-  // posts already on the wall just sit there; the one you just made gets slapped on
-  const motionProps = {
-    "data-post": "",
-    "data-drag": "",
-    className: clsx("piece", held && "is-held"),
-    onPointerDown,
-    initial: fresh ? { opacity: 0, scale: 1.35, y: -40, rotate: rotate - 9 } : false,
-    animate: { opacity: 1, scale: held ? 1.05 : 1, y: 0, rotate: held ? 0 : rotate },
-    transition: slap,
-  } as const;
-
-  if (post.kind === "photo") {
-    return (
-      <m.div {...motionProps} style={{ ...base, width: 200, background: "var(--paper-white)", padding: "10px 10px 8px" }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={post.image_url ?? ""} alt={post.caption ? `Visitor photo: ${post.caption}` : "Photo left by a visitor"} loading="lazy" draggable={false} style={{ width: 180, height: 160, objectFit: "cover", display: "block" }} />
-        <div className="marker" style={{ fontSize: 16, textAlign: "center", paddingTop: 6, lineHeight: 1.15 }}>
-          {post.caption || ""} {sig}
-        </div>
-        <span className="tape" />
-      </m.div>
-    );
-  }
-
-  return (
-    <m.div
-      {...motionProps}
-      className={clsx("piece marker", held && "is-held")}
-      style={{
-        ...base,
-        width: 180,
-        height: 170,
-        background: post.color ?? "var(--sticky)",
-        padding: post.kind === "doodle" ? "22px 14px 10px" : "30px 16px 12px",
-        fontSize: (post.text?.length ?? 0) > 120 ? 14 : (post.text?.length ?? 0) > 60 ? 16 : 19,
-        lineHeight: 1.2,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        overflowWrap: "anywhere",
-      }}
-    >
-      {post.kind === "doodle" ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={post.image_url ?? ""} alt="Doodle left by a visitor" loading="lazy" draggable={false} style={{ width: "100%", height: 104, objectFit: "contain" }} />
-      ) : (
-        <span style={{ overflow: "hidden" }}>{post.text}</span>
-      )}
-      <small className="elite" style={{ fontSize: 12 }}>{sig}</small>
-      <span className="pin" />
-    </m.div>
   );
 }

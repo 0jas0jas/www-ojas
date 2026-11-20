@@ -100,7 +100,7 @@ export const items: WallItem[] = [
       <>
         <Photo src="/wall/hackathon.jpg" alt="Ojas speaking at a hackathon" style={{ height: 250 }} />
         <div style={{ padding: "10px 16px" }}>
-          <div className="anton" style={{ fontSize: 44, lineHeight: 0.95, color: "var(--pink)" }}>i host hackathons</div>
+          <div className="anton" style={{ fontSize: 44, lineHeight: 0.95, color: "var(--pink)" }}>i host(ed) hackathons</div>
         </div>
         <Tape />
       </>
@@ -149,7 +149,7 @@ export const items: WallItem[] = [
     content: (
       <>
         <span className="anton" style={{ fontSize: 34, lineHeight: 1 }}>resume</span>
-        <span style={{ fontSize: 12 }}>grab the pdf</span>
+        <span style={{ fontSize: 12 }}></span>
       </>
     ),
   },
@@ -333,7 +333,7 @@ export const items: WallItem[] = [
             opacity: 0.85,
           }}
         >
-          hire me?
+          pls gib j*b
         </div>
         <Staple style={{ left: 24, top: 10, transform: "rotate(-30deg)" }} />
         <Staple style={{ right: 24, top: 10, transform: "rotate(30deg)" }} />
@@ -500,7 +500,7 @@ export const items: WallItem[] = [
         <div style={{ flex: 1, padding: 18, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
           <div className="anton" style={{ fontSize: 54, lineHeight: 0.95 }}>email?</div>
           <div style={{ fontSize: 14, wordBreak: "break-all" }}>ojas@knowojas.com</div>
-          <div style={{ fontSize: 11, letterSpacing: ".15em" }}>CLOSE COVER BEFORE STRIKING</div>
+          <div style={{ fontSize: 11, letterSpacing: ".15em" }}>Slanted and enchanted</div>
         </div>
       </>
     ),

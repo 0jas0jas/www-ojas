@@ -3,7 +3,7 @@ import { Metadata, Viewport } from "next";
 import clsx from "clsx";
 
 import { siteConfig } from "@/config/site";
-import { fontAnton, fontElite, fontMarker } from "@/config/fonts";
+import { fontAnton, fontElite, fontFell, fontFellSC, fontMarker } from "@/config/fonts";
 
 export const metadata: Metadata = {
   title: {
@@ -26,7 +26,7 @@ const scaleScript = `(function(){var w=window.innerWidth,s=window.innerHeight/90
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={clsx(fontAnton.variable, fontMarker.variable, fontElite.variable)}>
+    <html lang="en" className={clsx(fontAnton.variable, fontMarker.variable, fontElite.variable, fontFell.variable, fontFellSC.variable)}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: scaleScript }} />
       </head>

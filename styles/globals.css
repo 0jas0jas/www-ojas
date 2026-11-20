@@ -277,3 +277,97 @@ a.piece:hover {
   margin-bottom: 6px;
   color: var(--ink);
 }
+
+/* ---------- guest wall notice board (components/wall/board) ---------- */
+.fell {
+  font-family: var(--font-fell), Georgia, serif;
+}
+.fell-sc {
+  font-family: var(--font-fell-sc), Georgia, serif;
+}
+/* notices are torn, so the shadow follows the paper instead of a box */
+.piece.notice,
+.piece.notice.is-held {
+  box-shadow: none !important;
+  filter: drop-shadow(0 7px 6px rgba(0, 0, 0, 0.5)) drop-shadow(0 1px 1px rgba(0, 0, 0, 0.45));
+}
+.piece.notice.is-held {
+  filter: drop-shadow(0 22px 16px rgba(0, 0, 0, 0.5)) drop-shadow(0 4px 4px rgba(0, 0, 0, 0.4));
+}
+.iron-nail {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #aaa49c, #4b4642 55%, #1b1918);
+  box-shadow:
+    1px 3px 3px rgba(0, 0, 0, 0.6),
+    inset -1px -1px 1px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+.iron-nail::after {
+  /* rust bleeding down the paper */
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 10px;
+  width: 4px;
+  height: 22px;
+  background: linear-gradient(rgba(122, 61, 20, 0.45), transparent);
+  z-index: -1;
+}
+.notice-form .lbl {
+  font-size: 15px;
+  letter-spacing: 0.06em;
+  color: #24170c;
+  margin-bottom: 4px;
+}
+.field-parch {
+  border: none;
+  border-bottom: 2px solid rgba(36, 23, 12, 0.6);
+  background: transparent;
+  padding: 6px 2px;
+  font-size: 18px;
+  color: #24170c;
+}
+.field-parch:focus {
+  outline: none;
+  border-bottom-color: var(--orange);
+}
+.field-parch::placeholder {
+  color: rgba(36, 23, 12, 0.45);
+}
+textarea.field-parch.ruled {
+  border: 1.5px solid rgba(36, 23, 12, 0.45);
+  padding: 4px 10px;
+  line-height: 30px;
+  background-image: repeating-linear-gradient(transparent 0 29px, rgba(36, 23, 12, 0.22) 29px 30px);
+  background-position: 0 4px;
+}
+/* "yours goes here" on the notice board: the outline breathes and its dashes creep round */
+.spot-ghost {
+  animation: spot-breathe 2.4s ease-in-out infinite;
+}
+.spot-ghost-line {
+  animation: spot-march 1.6s linear infinite;
+}
+@keyframes spot-breathe {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes spot-march {
+  to {
+    stroke-dashoffset: -32;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spot-ghost,
+  .spot-ghost-line {
+    animation: none;
+  }
+}
